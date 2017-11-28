@@ -1,7 +1,10 @@
 var steem = require('steem');
 
 function updateSteemArticles(username) {
-  steem.api.getDiscussionsByBlog({limit:100, tag:username}, function(err, result) {
+  steem.api.getDiscussionsByBlog({
+    limit: 100,
+    tag: username
+  }, function (err, result) {
     for (var i = 0; i < result.length; i++) {
       var tags = JSON.parse(result[i].json_metadata).tags
       if (result[i].author == username || hexo.config.steem_resteems) {
@@ -17,8 +20,6 @@ function updateSteemArticles(username) {
     }
   });
 }
-
-
 
 if (hexo.config.steem_users) {
   for (var i = 0; i < hexo.config.steem_users.length; i++) {
